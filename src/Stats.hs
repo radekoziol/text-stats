@@ -42,7 +42,7 @@ frequentlyUsedWords [] = []
 frequentlyUsedWords (x:xs) = countOccurence x text xs
 
 temp :: String -> [Int]
-temp text =
+temp text = map countOccurence (nub $ splitToWords text)
 
 countOccurence :: Eq a => a -> [a] -> Int
 countOccurence x = length . filter (x==)
