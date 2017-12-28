@@ -1,6 +1,14 @@
 module Main where
 
-import Lib
+import System.Environment
+import System.IO.Error
+import Control.Exception
+
+import FileReader
 
 main :: IO ()
-main = someFunc
+main = do
+    result <- try readInput
+    case result of
+        Left ex -> noSuchFileEx ex
+        Right _ -> putStrLn "No errors"
