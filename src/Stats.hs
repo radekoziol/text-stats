@@ -37,18 +37,12 @@ countLines content = length $ lines content
 countWords :: String -> Int
 countWords xs = length [x | x <- words xs] -- działa chyba
 
-frequentlyUsedWords :: String -> [(String,Int)]
-frequentlyUsedWords [] = []
-frequentlyUsedWords (x:xs) = countOccurence x text xs
-
-temp :: String -> [Int]
-temp text = map countOccurence (nub $ splitToWords text)
+-- Every duplicating word is counted
+frequentlyUsedWords :: String -> [(Int,String)]
+frequentlyUsedWords text = map (\ str -> ( countOccurence str (splitToWords text) ,str)) (filter (\x -> x /= "") $ nub $ splitToWords text)
 
 countOccurence :: Eq a => a -> [a] -> Int
 countOccurence x = length . filter (x==)
-
-
-
 
 countChars :: String -> Int
 countChars x = length x
