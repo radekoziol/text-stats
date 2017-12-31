@@ -10,7 +10,7 @@ import Control.Monad
 import Data.Char
 import Data.List
 import Stats
-import Document
+import qualified Document
 
 -- Zadania:
 -- Napisać program obliczający dla podanego pliku następujęce wskaźniki:
@@ -30,20 +30,13 @@ import Document
 -- najczesciej uzyte slowo
 
 readInput :: IO ()
-readInput = do (fileName:otherArg) <- getArgs
+readInput = do (path:otherArg) <- getArgs
                when (otherArg /= []) $ error "Too many arguments!"
-               when (map toUpper fileName == "HELP") $ putStrLn "Usage: $ .. FULLPATH"
-               contents <- readFile fileName
-               putStrLn ("Number of characters: " ++ show (countChars contents))
-               putStrLn ("Number of words: " ++ show (countWords contents))
-               putStrLn ("Number of lines: " ++ show (countLines contents))
-               putStrLn ("Number of unique words: " ++ show (countUniqueWords contents))
-               putStrLn ("Number of lines longer than 80: " ++ show (countLinesLongerThan 80 contents))
-               putStrLn ("Number of 'xD': " ++ show (countWordOccurrence "xD" contents))
-               putStrLn ("Letters occurrence: " ++ show (countLettersOccurrence contents))
-
-
-
+               when (map toUpper path == "HELP") $ putStrLn "Usage: $ .. FULLPATH"
+               content <- readFile path
+               let doc = Document.MkDocument path content
+               putStrLn ("Path: " ++ (show $ Document.getPath doc))
+               putStrLn ("Lines: " ++ (show $ Document.getLines doc))
 
 noSuchFileEx :: IOError -> IO ()
 noSuchFileEx = \ex -> if isDoesNotExistError ex

@@ -1,16 +1,13 @@
 module Document
-  ( Document
+  ( Document(..)
+  , getLines
   ) where
 
-data Document = Document
-    { path :: String
-    , content :: String
-    , numOfCharacters :: Int
-    , numOfLetter :: [Int]
-    , numOfWords :: Int
-    , numOfUniqueWords :: Int
-    , specificWord :: String
-    , numOfSpecificWord :: Int
-    , numOfLines :: Int
-    , numOfLongLines :: Int
-    } deriving (Show)
+data Document = MkDocument
+  {
+    getPath :: String
+  , getContent :: String
+  } deriving Show
+
+getLines :: Document -> Int
+getLines (MkDocument path content) = length $ lines content

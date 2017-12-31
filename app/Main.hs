@@ -8,6 +8,7 @@ import FileReader
 
 main :: IO ()
 main = do
+
     result <- try readInput
     case result of
         Left ex -> noSuchFileEx ex
