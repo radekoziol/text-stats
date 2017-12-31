@@ -1,4 +1,8 @@
-data Document =
+module Document
+  ( Document
+  ) where
+
+data Document = Document
     { path :: String
     , content :: String
     , numOfCharacters :: Int

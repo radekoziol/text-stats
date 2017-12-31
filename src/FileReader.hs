@@ -10,6 +10,7 @@ import Control.Monad
 import Data.Char
 import Data.List
 import Stats
+import Document
 
 -- Zadania:
 -- Napisać program obliczający dla podanego pliku następujęce wskaźniki:
@@ -39,10 +40,26 @@ readInput = do (fileName:otherArg) <- getArgs
                putStrLn ("Number of unique words: " ++ show (countUniqueWords contents))
                putStrLn ("Number of lines longer than 80: " ++ show (countLinesLongerThan 80 contents))
                putStrLn ("Number of 'xD': " ++ show (countWordOccurrence "xD" contents))
-               putStrLn (countLettersOccurrence contents)
+               putStrLn ("Letters occurrence: " ++ show (countLettersOccurrence contents))
+
+
 
 
 noSuchFileEx :: IOError -> IO ()
 noSuchFileEx = \ex -> if isDoesNotExistError ex
                 then putStrLn "File doesn't exist!"
                 else ioError ex
+
+                -- readInput :: IO ()
+                -- readInput = do (fileName:otherArg) <- getArgs
+                --                when (otherArg /= []) $ error "Too many arguments!"
+                --                when (map toUpper fileName == "HELP") $ putStrLn "Usage: $ .. FULLPATH"
+                --                contents <- readFile fileName
+                --                putStrLn ("Number of characters: " ++ show (countChars contents))
+                --                putStrLn ("Number of words: " ++ show (countWords contents))
+                --                putStrLn ("Number of lines: " ++ show (countLines contents))
+                --                putStrLn ("Number of unique words: " ++ show (countUniqueWords contents))
+                --                putStrLn ("Number of lines longer than 80: " ++ show (countLinesLongerThan 80 contents))
+                --                putStrLn ("Number of 'xD': " ++ show (countWordOccurrence "xD" contents))
+                --                putStrLn ("Letters occurrence: " ++ show (countLettersOccurrence contents))
+                --

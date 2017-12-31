@@ -18,8 +18,8 @@ import Data.List
 splitToWords :: String -> [String]
 splitToWords [] = [""]
 splitToWords (x:xs)
-   | x == ' ' = "" : rest
-   | otherwise = (x : head rest) : tail rest
+   | x == ' '   = "" : rest
+   | otherwise  = (x : head rest) : tail rest
    where
        rest = splitToWords xs
 
@@ -39,10 +39,11 @@ countWords xs = length [x | x <- words xs] -- działa chyba
 
 -- Every duplicating word is counted
 frequentlyUsedWords :: String -> [(Int,String)]
-frequentlyUsedWords text = map (\ str -> ( countOccurence str (splitToWords text) ,str)) (filter (\x -> x /= "") $ nub $ splitToWords text)
+frequentlyUsedWords text = map (\str -> (countOccurrence str (splitToWords text) ,str)) (filter (\x -> x /= "") $ nub $ splitToWords text)
 
-countOccurence :: Eq a => a -> [a] -> Int
-countOccurence x = length . filter (x==)
+countOccurrence :: Eq a => a -> [a] -> Int
+countOccurrence x = length . filter (x == )
+
 
 countChars :: String -> Int
 countChars x = length x
@@ -50,10 +51,10 @@ countChars x = length x
 countAsciiOccurrence :: Int -> String -> Int
 countAsciiOccurrence ascii xs = length [x | x <- xs, fromEnum x == ascii || fromEnum x == ascii + 32]
 
-countLettersOccurrence :: String -> String
-countLettersOccurrence = loop 65 "Letters - "
-  where loop 90 result xs = result ++ [toEnum 90] ++ ": " ++ show (countAsciiOccurrence 90 xs)
-        loop ascii result xs = loop (ascii + 1) (result ++ ([toEnum ascii] ++ ": " ++ show (countAsciiOccurrence ascii xs) ++ ", ")) xs
+countLettersOccurrence :: String -> [Int]
+countLettersOccurrence       = loop 65 []
+  where loop 91 result _     = result
+        loop ascii result xs = loop (ascii + 1) (result ++ [countAsciiOccurrence ascii xs]) xs
 
 -- (dodać obsługę błędów)
 countWordOccurrence :: String -> String -> Int
@@ -61,8 +62,8 @@ countWordOccurrence word xs = length [x | x <- words xs, x == word]
 
 --nie wiem co ja tworze XDD
 countLinesLongerThan :: Int -> String -> Int
-countLinesLongerThan n = loop 0 0 n
-  where loop result _ _ [] = result
+countLinesLongerThan n           = loop 0 0 n
+  where loop result _ _ []       = result
         loop result acc n (x:xs) = if x == '\n' then
                                       if acc > n then loop (result + 1) 0 n xs
                                       else loop result 0 n xs
