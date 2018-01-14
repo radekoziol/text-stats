@@ -19,6 +19,7 @@ data Document = MkDocument
   , getContent :: String
   } deriving Show
 
+  
 -- |The 'getLines' fucntion calculates number of lines in given document
 -- It takes one argument, of type Document and returns Int
 getLines :: Document -> Int
@@ -28,11 +29,11 @@ getWords :: Document -> Int
 getWords (MkDocument path content) = length [x | x <- words content]
 
 getUniqueWords :: Document -> Int
-getUniqueWords (MkDocument path content) = length $ filter (\x -> x /= "") $ nub $ splitToWords content
+getUniqueWords (MkDocument path content) = length $ words content
 
--- potrzebne usuwanie znaku nowej linii '\n'
+-- Returns word if it at least duplicated
 getFreqWords :: Document -> [(Int, String)]
-getFreqWords (MkDocument path content) = map (\str -> (countOccurrence str (splitToWords content), str)) (filter (\x -> x /= "") $ nub $ splitToWords content)
+getFreqWords (MkDocument path content) = filter (\ (int,str) -> int > 1) (wordOccurence content)
 
 getChars :: Document -> Int
 getChars (MkDocument path content) = length content
