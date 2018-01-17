@@ -6,10 +6,10 @@ import Control.Exception
 
 import FileReader
 
+
 main :: IO ()
 main = do
-
     result <- try readInput
     case result of
         Left ex -> noSuchFileEx ex
-        Right _ -> putStrLn "No errors"
+        Right _ -> putStrLn "Exit."

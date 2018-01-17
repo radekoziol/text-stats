@@ -10,7 +10,6 @@ import Control.Monad
 import Data.Char
 import Data.List
 import qualified Document
-
 -- Zadania:
 -- Napisać program obliczający dla podanego pliku następujęce wskaźniki:
 -- liczbę linii, OK
@@ -29,20 +28,25 @@ import qualified Document
 -- najczesciej uzyte slowo
 
 readInput :: IO ()
-readInput = do (path:otherArg) <- getArgs
-               when (otherArg /= []) $ error "Too many arguments!"
-               when (map toUpper path == "HELP") $ putStrLn "Usage: $ .. FULLPATH"
-               content <- readFile path
-               let doc = Document.MkDocument path content
-               putStrLn ("Path: " ++ (show $ Document.getPath doc))
-               putStrLn ("Lines: " ++ (show $ Document.getLines doc))
-               putStrLn ("Words: " ++ (show $ Document.getWords doc))
-               putStrLn ("Unique words: " ++ (show $ Document.getUniqueWords doc))
-               --putStrLn ("Frequent words: " ++ (show $ Document.getFreqWords doc))
-               putStrLn ("Chars: " ++ (show $ Document.getChars doc))
-               putStrLn ("Letters occ: " ++ (show $ Document.getLettersOcc doc))
-               putStrLn ("Word occ: " ++ (show $ Document.getWordOcc doc "lorem"))
-               putStrLn ("Lines longer than 80: " ++ (show $ Document.getLongLines doc 80))
+readInput = do
+  args <- getArgs
+  case args of
+      [path, word, lineLen] -> do
+        content <- readFile path
+        let doc = Document.MkDocument path content
+        let x = read lineLen :: Int
+        putStrLn ("File path: " ++ (show $ Document.getPath doc))
+        putStrLn ("Lines: " ++ (show $ Document.getLines doc))
+        putStrLn ("Words: " ++ (show $ Document.getWords doc))
+        putStrLn ("Unique words: " ++ (show $ Document.getUniqueWords doc))
+        putStrLn ("Words fregquency: " ++ (show $ Document.getFreqWords doc))
+        putStrLn ("Chars: " ++ (show $ Document.getChars doc))
+        putStrLn ("Letters occurrency: " ++ (show $ Document.getLettersOcc doc))
+        putStrLn ("Word '" ++ word ++ "' occurred: " ++ (show $ Document.getWordOcc doc word))
+        putStrLn ("Lines longer than " ++ lineLen ++ ": " ++ (show $ Document.getLongLines doc x))
+      _ -> do
+        name <- getProgName
+        putStrLn $ "usage: " ++ name ++ " <path> <word>"
 
 noSuchFileEx :: IOError -> IO ()
 noSuchFileEx = \ex -> if isDoesNotExistError ex

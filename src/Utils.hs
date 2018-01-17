@@ -2,6 +2,7 @@ module Utils
   (
     splitToWords
   , countOccurrence
+  , wordOccurence
   , countAsciiOccurrence
   ) where
 
