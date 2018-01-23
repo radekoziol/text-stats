@@ -1,3 +1,14 @@
+{-|
+Module      : Utils
+Description : Contains functions connected with document
+Copyright   : (c) Radosław Kozioł, 2018
+                  Piotr Kardaś, 2018
+License     : GPL-3
+Maintainer  : pkardas.it@gmail.com
+Stability   : experimental
+Portability : POSIX
+
+-}
 module Utils
   (
     countOccurrence

@@ -1,3 +1,16 @@
+{-|
+Module      : Document
+Description : Document detailed description
+Copyright   : (c) Radosław Kozioł, 2018
+                  Piotr Kardaś, 2018
+License     : GPL-3
+Maintainer  : pkardas.it@gmail.com
+Stability   : experimental
+Portability : POSIX
+
+ This module is result of more a object-oriented programming approach.
+ We wanted to make easier comparing documents.
+-}
 module Document
   ( Document(..)
   , getLines
@@ -13,9 +26,12 @@ module Document
 import Utils
 import Data.List
 
+
 data Document = MkDocument
   {
+-- | The 'getPath' function returns full path to file.
     getPath :: String
+-- | The 'getContent' function returns content of document.
   , getContent :: String
   } deriving Show
 
@@ -39,7 +55,7 @@ getWords (MkDocument path content) = length [x | x <- words content]
   It takes one argument, of type Document and returns Int
 -}
 getUniqueWords :: Document -> Int
-getUniqueWords (MkDocument path content) = length $ words content
+getUniqueWords (MkDocument path content) = length . group . sort . words $ content
 
 {-|
   The 'getWords' function returns a map of frequently used words [how_many_times_word_occured,word].
@@ -57,7 +73,7 @@ getChars :: Document -> Int
 getChars (MkDocument path content) = length content
 
 {-|
-  The 'getLettersOcc' function returns 
+  The 'getLettersOcc' function counts how many each letter has appeared.
   It takes one argument, of type Document and returns an array of Ints.
 -}
 getLettersOcc :: Document -> [Int]
@@ -73,7 +89,7 @@ getWordOcc :: Document -> String -> Int
 getWordOcc (MkDocument path content) word = length [x | x <- words content, x == word]
 
 {-|
-  The 'getLongLines' function 
+  The 'getLongLines' function calculates how many are there lines longer than <arg>.
   It takes two arguments, of type Document and of type Int and returns Int.
 -}        
 getLongLines :: Document -> Int -> Int
