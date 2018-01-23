@@ -26,10 +26,8 @@ lowerStrings x = map (\x -> map toLower x) x
 
 -- For every word [how_many_times_it_occured,word]
 wordOccurence :: String -> [(Int,String)]
-wordOccurence text = map (\ str -> (countOccurrence str processedtext ,str)) (nub $ processedtext)
+wordOccurence text = map (\str -> (countOccurrence str processedtext, str)) (nub $ processedtext)
       where processedtext = lowerStrings $ removeNonAlpha text
-
-
 
 countAsciiOccurrence :: Int -> String -> Int
 countAsciiOccurrence ascii xs = length [x | x <- xs, fromEnum x == ascii || fromEnum x == ascii + 32]
