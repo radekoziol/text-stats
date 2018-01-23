@@ -46,7 +46,7 @@ readInput = do
         putStrLn ("Lines longer than " ++ lineLen ++ ": " ++ (show $ Document.getLongLines doc x))
       _ -> do
         name <- getProgName
-        putStrLn $ "usage: " ++ name ++ " <path> <word>"
+        putStrLn $ "usage: " ++ name ++ " <path> <word> <lines>"
 
 noSuchFileEx :: IOError -> IO ()
 noSuchFileEx = \ex -> if isDoesNotExistError ex

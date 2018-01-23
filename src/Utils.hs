@@ -1,7 +1,5 @@
 module Utils
-  (
-    splitToWords
-  , countOccurrence
+  ( countOccurrence
   , wordOccurence
   , countAsciiOccurrence
   ) where
@@ -9,12 +7,11 @@ module Utils
 import Data.Char
 import Data.List
 
-
 countOccurrence :: Eq a => a -> [a] -> Int
 countOccurrence x = length . filter (x == )
 
 removePunctuation :: String -> String
-removePunctuation x 
+removePunctuation x
         | (last x == '.' || last x == ',') = init x
         | otherwise                        = x
 
