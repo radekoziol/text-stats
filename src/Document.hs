@@ -35,7 +35,7 @@ data Document = MkDocument
   , getContent :: String
   } deriving Show
 
-  
+
 {-|
   The 'getLines' function returns number of lines in given document.
   It takes one argument, of type Document and returns Int
@@ -84,14 +84,14 @@ getLettersOcc (MkDocument path content) = loop 65 [] content
 {-|
   The 'getWordOcc' function counts occurence of given word in document.
   It takes two arguments, of type Document and of type String and returns Int.
--}        
+-}
 getWordOcc :: Document -> String -> Int
 getWordOcc (MkDocument path content) word = length [x | x <- words content, x == word]
 
 {-|
   The 'getLongLines' function calculates how many are there lines longer than <arg>.
   It takes two arguments, of type Document and of type Int and returns Int.
--}        
+-}
 getLongLines :: Document -> Int -> Int
 getLongLines (MkDocument path content) n = loop 0 0 n content
   where loop result _ _ []               = result

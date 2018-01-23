@@ -10,8 +10,7 @@ Portability : POSIX
 
 -}
 module Utils
-  (
-    countOccurrence
+  ( countOccurrence
   , wordOccurrence
   , countAsciiOccurrence
   ) where
@@ -29,16 +28,16 @@ countOccurrence x = length . filter (x == )
 
 {-|
   The 'removePunctuation' function removes in a string a comma or dot, placed at the end of string.
-  Note that it is assumed that any given text will follow those rules. 
+  Note that it is assumed that any given text will follow those rules.
   It takes one arguments, of type String and returns String.
 -}
 removePunctuation :: String -> String
-removePunctuation x 
+removePunctuation x
         | (last x == '.' || last x == ',') = init x
         | otherwise                        = x
 
 {-|
-  The 'removeNonAlpha' function for each word in text removes it's punctuation in order to 
+  The 'removeNonAlpha' function for each word in text removes it's punctuation in order to
   count occurence of the same word - consider string "abc, abc."
   It takes one arguments, of type String and returns an array of Strings.
 -}
@@ -57,8 +56,8 @@ lowerStrings x = map (\x -> map toLower x) x
   For each word in a set of processed text (in lower case, excluded punctuation), occurence is counted.
   It takes one arguments, of type of String and returns a map of Int and String.
 -}
-wordOccurrence :: String -> [(Int,String)]
-wordOccurrence text = map (\ str -> (countOccurrence str processedtext ,str)) (nub $ processedtext)
+wordOccurrence :: String -> [(Int, String)]
+wordOccurrence text = map (\str -> (countOccurrence str processedtext, str)) (nub $ processedtext)
       where processedtext = lowerStrings $ removeNonAlpha text
 
 {-|

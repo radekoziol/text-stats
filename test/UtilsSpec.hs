@@ -17,7 +17,7 @@ testWordOccurence1 =
                                                             (1,"8.2.2"),
                                                             (1,"-"),
                                                             (1,"best")])
-                                                            (wordOccurence "The Glorious Glasgow Haskell Compilation System, version 8.2.2 - the best version")
+                                                            (wordOccurrence "The Glorious Glasgow Haskell Compilation System, version 8.2.2 - the best version")
 
 testCountAsciiOccurrence1 =
   testCase "Test counting ASCII #1" $ assertEqual [] 4 (countAsciiOccurrence 65 "ALA MA KOTA")
