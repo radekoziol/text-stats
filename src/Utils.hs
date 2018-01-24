@@ -13,6 +13,9 @@ module Utils
   ( countOccurrence
   , wordOccurrence
   , countAsciiOccurrence
+  , removePunctuation
+  , removeNonAlpha
+  , lowerStrings
   ) where
 
 import Data.Char

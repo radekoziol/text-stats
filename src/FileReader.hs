@@ -36,14 +36,14 @@ readInput = do
         let doc = Document.MkDocument path content
         let x = read lineLen :: Int
         putStrLn ("File path: " ++ (show $ Document.getPath doc))
-        putStrLn ("Lines: " ++ (show $ Document.getLines doc))
-        putStrLn ("Words: " ++ (show $ Document.getWords doc))
-        putStrLn ("Unique words: " ++ (show $ Document.getUniqueWords doc))
-        putStrLn ("Words fregquency: " ++ (show $ Document.getFreqWords doc))
-        putStrLn ("Chars: " ++ (show $ Document.getChars doc))
-        putStrLn ("Letters occurrency: " ++ (show $ Document.getLettersOcc doc))
-        putStrLn ("Word '" ++ word ++ "' occurred: " ++ (show $ Document.getWordOcc doc word))
-        putStrLn ("Lines longer than " ++ lineLen ++ ": " ++ (show $ Document.getLongLines doc x))
+        putStrLn ("Lines: " ++ (show $ Document.countLines doc))
+        putStrLn ("Words: " ++ (show $ Document.countWords doc))
+        putStrLn ("Unique words: " ++ (show $ Document.countUniqueWords doc))
+        putStrLn ("Words fregquency: " ++ (show $ Document.countFreqWords doc))
+        putStrLn ("Chars: " ++ (show $ Document.countChars doc))
+        putStrLn ("Letters occurrency: " ++ (show $ Document.countLettersOcc doc))
+        putStrLn ("Word '" ++ word ++ "' occurred: " ++ (show $ Document.countWordOcc doc word))
+        putStrLn ("Lines longer than " ++ lineLen ++ ": " ++ (show $ Document.countLongLines doc x))
       _ -> do
         name <- getProgName
         putStrLn $ "usage: " ++ name ++ " <path> <word> <lines>"

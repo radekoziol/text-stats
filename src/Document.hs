@@ -13,19 +13,18 @@ Portability : POSIX
 -}
 module Document
   ( Document(..)
-  , getLines
-  , getWords
-  , getUniqueWords
-  , getFreqWords
-  , getChars
-  , getLettersOcc
-  , getWordOcc
-  , getLongLines
+  , countLines
+  , countWords
+  , countUniqueWords
+  , countFreqWords
+  , countChars
+  , countLettersOcc
+  , countWordOcc
+  , countLongLines
   ) where
 
 import Utils
 import Data.List
-
 
 data Document = MkDocument
   {
@@ -35,65 +34,64 @@ data Document = MkDocument
   , getContent :: String
   } deriving Show
 
-
 {-|
-  The 'getLines' function returns number of lines in given document.
+  The 'countLines' function returns number of lines in given document.
   It takes one argument, of type Document and returns Int
 -}
-getLines :: Document -> Int
-getLines (MkDocument path content) = length $ lines content
+countLines :: Document -> Int
+countLines (MkDocument path content) = length $ lines content
 
 {-|
-  The 'getWords' function returns number of words in given document
+  The 'countWords' function returns number of words in given document
   It takes one argument, of type Document and returns Int
 -}
-getWords :: Document -> Int
-getWords (MkDocument path content) = length [x | x <- words content]
+countWords :: Document -> Int
+countWords (MkDocument path content) = length [x | x <- words content]
 
 {-|
-  The 'getWords' function returns number of non-repetetive words in given document
+  The 'countWords' function returns number of non-repetetive words in given document
   It takes one argument, of type Document and returns Int
 -}
-getUniqueWords :: Document -> Int
-getUniqueWords (MkDocument path content) = length . group . sort . words $ content
+countUniqueWords :: Document -> Int
+countUniqueWords (MkDocument path content) = length . group . sort . words $ content
 
 {-|
-  The 'getWords' function returns a map of frequently used words [how_many_times_word_occured,word].
+  The 'countWords' function returns a map of frequently used words [how_many_times_word_occured,word].
   We define frequently as at least duplicated.
   It takes one argument, of type Document and returns map of Int and String.
 -}
-getFreqWords :: Document -> [(Int, String)]
-getFreqWords (MkDocument path content) = filter (\ (int,str) -> int > 1) (wordOccurrence content)
+countFreqWords :: Document -> [(Int, String)]
+countFreqWords (MkDocument path content) = filter (\ (int,str) -> int > 1) (wordOccurrence content)
 
 {-|
-  The 'getChars' function returns a number of chars used in document.
+  The 'countChars' function returns a number of chars used in document.
   It takes one argument, of type Document and returns map of Int.
 -}
-getChars :: Document -> Int
-getChars (MkDocument path content) = length content
+countChars :: Document -> Int
+countChars (MkDocument path content) = length content
 
 {-|
-  The 'getLettersOcc' function counts how many each letter has appeared.
+  The 'countLettersOcc' function counts how many each letter has appeared.
   It takes one argument, of type Document and returns an array of Ints.
 -}
-getLettersOcc :: Document -> [Int]
-getLettersOcc (MkDocument path content) = loop 65 [] content
+countLettersOcc :: Document -> [Int]
+countLettersOcc (MkDocument path content) = loop 65 [] content
   where loop 91 result _                = result
         loop ascii result content       = loop (ascii + 1) (result ++ [countAsciiOccurrence ascii content]) content
 
 {-|
-  The 'getWordOcc' function counts occurence of given word in document.
+  The 'countWordOcc' function counts occurence of given word in document.
   It takes two arguments, of type Document and of type String and returns Int.
 -}
-getWordOcc :: Document -> String -> Int
-getWordOcc (MkDocument path content) word = length [x | x <- words content, x == word]
+countWordOcc :: Document -> String -> Int
+countWordOcc (MkDocument path content) word = length [x | x <- words content, x == word]
 
 {-|
-  The 'getLongLines' function calculates how many are there lines longer than <arg>.
+  The 'countLongLines' function calculates how many are there lines longer than <arg>.
   It takes two arguments, of type Document and of type Int and returns Int.
 -}
-getLongLines :: Document -> Int -> Int
-getLongLines (MkDocument path content) n = loop 0 0 n content
+countLongLines :: Document -> Int -> Int
+countLongLines (MkDocument path content) n = loop 0 1 n content
   where loop result _ _ []               = result
         loop result acc n (x:xs)         = if x == '\n' then
                                              if acc > n then loop (result + 1) 0 n xs
