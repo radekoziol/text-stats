@@ -1,5 +1,5 @@
------===============================-----
------==== REVIEW OF THE PROJECT ====-----
------===============================-----
+# REVIEW OF THE PROJECT
 
-GitHub repo: ...
+GitHub repository: ["Implementacja wybranego algorytmu"](github.com/???)
+
+## Review
