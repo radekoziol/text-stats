@@ -61,8 +61,7 @@ countUniqueWords (MkDocument path content) = length . group . sort . words $ con
   It takes one argument, of type Document and returns map of Int and String.
 -}
 countFreqWords :: Document -> [(Int, String)]
-countFreqWords (MkDocument path content) = filter (\ (int,str) -> int > 1) (wordOccurrence content)
-
+countFreqWords (MkDocument path content) = take 10 $ sortBy (flip compare) $ filter (\(i, `str) -> i > 1) $ wordOccurrence content
 {-|
   The 'countChars' function returns a number of chars used in document.
   It takes one argument, of type Document and returns map of Int.
